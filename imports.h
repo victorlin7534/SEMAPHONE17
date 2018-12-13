@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 #include <sys/shm.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 union semun{
   int val;    /* Value for SETVAL */
@@ -15,7 +16,7 @@ union semun{
   struct seminfo  *__buf;  /* Buffer for IPC_INFO(Linux-specific) */
 };
 
-void process(char *arg);
-void create(int key);
-void remove(int key);
-void view(int key);
+void process(char *arg,key_t key);
+void create(key_t key);
+void delete(key_t key);
+void view(key_t key);
