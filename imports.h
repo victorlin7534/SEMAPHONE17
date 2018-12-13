@@ -4,6 +4,9 @@
 #include <sys/types.h>
 #include <string.h>
 #include <sys/sem.h>
+#include <sys/stat.h>
+#include <sys/shm.h>
+#include <fcntl.h>
 
 union semun{
   int val;    /* Value for SETVAL */
@@ -13,3 +16,6 @@ union semun{
 };
 
 void process(char *arg);
+void create(int key);
+void remove(int key);
+void view(int key);
