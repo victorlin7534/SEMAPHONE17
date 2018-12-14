@@ -8,6 +8,7 @@
 #include <sys/shm.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <errno.h>
 
 union semun{
   int val;    /* Value for SETVAL */
