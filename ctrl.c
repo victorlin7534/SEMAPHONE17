@@ -93,8 +93,8 @@ void edit(){
 }
 
 void process(char *arg){
-  if(strcmp(arg,"-c")) create();
-  else if(strcmp(arg,"-r")) delete();
-  else if(strcmp(arg,"-v")) view();
+  if(!strcmp(arg,"-c")) create();
+  else if(!strcmp(arg,"-r")) delete();
+  else if(!strcmp(arg,"-v")) view();
   else edit();
 }
