@@ -17,8 +17,8 @@ union semun{
   struct seminfo  *__buf;  /* Buffer for IPC_INFO(Linux-specific) */
 };
 
-void process(char *arg,key_t key);
-void create(key_t key);
-void delete(key_t key);
-void view(key_t key);
-void edit(key_t key);
+void process(char *arg);
+void create();
+void delete();
+void view();
+void edit();
