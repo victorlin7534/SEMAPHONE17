@@ -34,7 +34,7 @@ void delete(){
 		int file = open("story.txt",O_RDONLY);
 		if(file==-1) printf("%s\n",strerror(errno));
 		else{
-			char * story;
+			char * story = calloc(10000,1);
 			read(file,story,10000);
 			printf("%s\n",story);
 			close(file);
@@ -49,7 +49,7 @@ void view(){
   int file = open("story.txt",O_RDONLY);
   if(file==-1) printf("%s\n",strerror(errno));
   else{
-  	  char * story;
+  	  char * story = calloc(10000,1);
 	  read(file,story,10000);
 	  printf("%s\n",story);
 	  close(file);
@@ -77,10 +77,10 @@ void edit(){
 				char * data = shmat(shmid,0,0);
 				printf("previously written data: %s\n",data);
 				printf("type in the next line of the story: ");
-				char * input;
+				char * input = calloc(10000,1);
 				fgets(input,10000,stdin);
 				strtok(input,"\n");
-				write(file,input,strlen(input)+1);
+				write(file,input,10000);
 				strcpy(data,input);
 			}
 		}
