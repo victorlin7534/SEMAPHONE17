@@ -71,7 +71,7 @@ void edit(){
 		int shmid = shmget(key,10000,0644);
 		if(shmid==-1) printf("%s\n",strerror(errno));
 		else{
-			int file = open("story.txt",O_RDONLY);
+			int file = open("story.txt",O_RDONLY | O_WRONLY);
 			if(file==-1) printf("%s\n",strerror(errno));
 			else{
 				char * data = shmat(shmid,0,0);
