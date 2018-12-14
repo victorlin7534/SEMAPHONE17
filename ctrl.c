@@ -59,18 +59,15 @@ void view(){
 
 void edit(){
 	key_t key = ftok("story.txt",999);
-
   	int semd = semget(key,1,0644);
   	if(semd==-1) printf("%s\n",strerror(errno));
   	else{
   		while(semctl(semd,0,GETVAL)==0) printf("checking resource availability\n");
-
-  		struct sembuf * alt;
+  		struct sembuf * alt = malloc(sizeof(struct sembuf));
 		alt->sem_op = -1;
 		alt->sem_num = 0;
 		alt->sem_flg = SEM_UNDO;
 		semop(semd,alt,1);
-
 		int shmid = shmget(key,10000,0644);
 		if(shmid==-1) printf("%s\n",strerror(errno));
 		else{
@@ -86,7 +83,6 @@ void edit(){
 				strcpy(data,input);
 			}
 		}
-
 		alt->sem_op = 1;
   		semop(semd,alt,1);
 	}
