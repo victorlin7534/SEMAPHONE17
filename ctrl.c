@@ -12,7 +12,7 @@ void create(key_t  key){
   int shmid = shmget(key,10000,0644|IPC_CREAT);
   if(shmid==-1) printf("%s\n",strerror(errno));
 
-  int file = open("story.txt",O_TRUNC|O_CREAT|0644);
+  int file = open("story.txt",O_TRUNC|O_CREAT,0644);
   if(file==-1) printf("%s\n",strerror(errno));
 }
 
