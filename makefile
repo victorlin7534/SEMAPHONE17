@@ -5,4 +5,4 @@ ctrl.o: ctrl.c
 main.o: main.c
 	gcc -c main.c
 clean:
-	rm *~ *.o test* *out *exe
+	rm -f *~ *.o test* *out *exe
