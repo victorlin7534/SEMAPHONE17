@@ -20,3 +20,4 @@ void process(char *arg,key_t key);
 void create(key_t key);
 void delete(key_t key);
 void view(key_t key);
+void edit(key_t key);
