@@ -77,10 +77,10 @@ void edit(){
 				char * data = shmat(shmid,0,0);
 				printf("previously written data: %s\n",data);
 				printf("type in the next line of the story: ");
-				char * input = calloc(10000,1);
-				fgets(input,10000,stdin);
+				char * input = calloc(100,1);
+				fgets(input,100,stdin);
 				strtok(input,"\n");
-				write(file,input,10000);
+				write(file,input,100);
 				strcpy(data,input);
 			}
 		}
