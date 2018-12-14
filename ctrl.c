@@ -1,22 +1,27 @@
 #include "imports.h"
 
-void create(key_t  key){
-  int semd = semget(key,1,IPC_CREAT|IPC_EXCL|0644);
-  if(semd==-1) printf("%s\n",strerror(errno));
-  else{
-  	union semun data;
-  	data.val = 1;
-  	semctl(semd,0,SETVAL,data);
-  } 
+void create(){
+    int file = open("story.txt",O_TRUNC|O_CREAT,0644);
+    if(file==-1) printf("%s\n",strerror(errno));
+    else{
+    	key_t key = ftok("story.txt",999);
 
-  int shmid = shmget(key,10000,0644|IPC_CREAT);
-  if(shmid==-1) printf("%s\n",strerror(errno));
+		int semd = semget(key,1,IPC_CREAT|IPC_EXCL|0644);
+		if(semd==-1) printf("%s\n",strerror(errno));
+		else{
+	 		union semun data;
+	  		data.val = 1;
+	  		semctl(semd,0,SETVAL,data);
+	  	} 
 
-  int file = open("story.txt",O_TRUNC|O_CREAT,0644);
-  if(file==-1) printf("%s\n",strerror(errno));
+		int shmid = shmget(key,10000,0644|IPC_CREAT);
+		if(shmid==-1) printf("%s\n",strerror(errno));
+	}
 }
 
-void delete(key_t  key){
+void delete(){
+	key_t key = ftok("story.txt",999);
+	
   	int semd = semget(key,1,0644);
   	if(semd==-1) printf("%s\n",strerror(errno));
   	else{
@@ -40,7 +45,7 @@ void delete(key_t  key){
 	}
 }
 
-void view(key_t key){
+void view(){
   int file = open("story.txt",O_RDONLY);
   if(file==-1) printf("%s\n",strerror(errno));
   else{
@@ -52,7 +57,9 @@ void view(key_t key){
 }
 
 
-void edit(key_t key){
+void edit(){
+	key_t key = ftok("story.txt",999);
+
   	int semd = semget(key,1,0644);
   	if(semd==-1) printf("%s\n",strerror(errno));
   	else{
@@ -85,9 +92,9 @@ void edit(key_t key){
 	}
 }
 
-void process(char *arg,key_t key){
-  if(strcmp(arg,"-c")) create(key);
-  else if(strcmp(arg,"-r")) delete(key);
-  else if(strcmp(arg,"-v")) view(key);
-  edit(key);
+void process(char *arg){
+  if(strcmp(arg,"-c")) create();
+  else if(strcmp(arg,"-r")) delete();
+  else if(strcmp(arg,"-v")) view();
+  else edit();
 }
