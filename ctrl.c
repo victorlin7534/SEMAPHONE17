@@ -71,7 +71,7 @@ void edit(){
 		int shmid = shmget(key,10000,0644);
 		if(shmid==-1) printf("%s\n",strerror(errno));
 		else{
-			int file = open("story.txt",O_RDONLY | O_WRONLY);
+			int file = open("story.txt",O_RDONLY | O_WRONLY | O_APPEND);
 			if(file==-1) printf("%s\n",strerror(errno));
 			else{
 				char * data = shmat(shmid,0,0);
@@ -79,6 +79,7 @@ void edit(){
 				printf("type in the next line of the story: ");
 				char input[10000];
 				fgets(input,10000,stdin);
+				strtok(input,"\n");
 				write(file,input,10000);
 				strcpy(data,input);
 			}
